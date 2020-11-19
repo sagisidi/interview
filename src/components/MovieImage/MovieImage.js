@@ -5,9 +5,10 @@ const MovieImage = ({urls}) => {
   return (
             <div className="image-cont">
             {
-                urls.map( (url) => {
+                urls.map( (url,index) => {
+
                     return(
-						<img src={url} alt="movie"/>                 
+						<img src={url} alt="movie" key={`${url}-${index}`}/>                 
                     )
                 })
             }

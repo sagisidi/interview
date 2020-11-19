@@ -1,6 +1,7 @@
 import React from 'react';
 import './Login.css'
 import {Redirect} from 'react-router-dom';
+import {fetchApi} from '../../api/api';
 
 class Login extends React.Component {
 
@@ -10,7 +11,7 @@ class Login extends React.Component {
             email: '',
             password: '',
             name: '',
-            error:''
+            errors:[]
         }
     }
 
@@ -33,51 +34,42 @@ class Login extends React.Component {
     }
     onsubmit = () => {
         const { name, email, password } = this.state;
-        if (this.validate()){
-               fetch('http://localhost:8080/login', {
-                method: 'POST',
-                headers: { 'Content-type': 'application/json' },
-                body: JSON.stringify({
-                    name,
-                    email,
-                    password
-                })
-            })
-            .then(response => response.json())
+        if (!(!email || !password || !name)){
+            const body = {name,email,password};
+            fetchApi('login','POST',null,body)
             .then(userdata => {
                 if(userdata && userdata.token){
-                    this.setState({error:''})
+                    this.setState({errors:[]})
                     window.sessionStorage.setItem('token',userdata.token);
-                    this.props.signInOut({
-                        userid:userdata.userid,
-                        token:userdata.token
-                    },
-                    'SIGN_IN')  
+                    this.props.updateUserData(userdata.userid,userdata.token)
                 }
                 else
-                    this.setState({error:userdata})
+                    this.setState({errors:userdata})
             })
             .catch(err => {
                 console.log(err);
             })         
         }
+        else
+            this.setState({ errors: ['*All fields required'] })
 
     }
 
     validate = () => {
         const { email, password, name } = this.state;
         if (!email || !password || !name){
-            this.setState({ error: '*All fields required' })
+            this.setState({ errors: ['*All fields required'] })
             return false;
         }
-        this.setState({ error: '' })
+        this.setState({ errors: [] })
         return true;
     }
 
 
 
     render() {
-
+    const errorList = this.state.errors.map(error => 
+                        <p className="error">{error}</p>)
         return (
         <React.Fragment>
         {this.props.isloggedIn?
@@ -97,7 +89,7 @@ class Login extends React.Component {
                     <label>Password:</label>
                     <input onChange={this.onChangePassword}  type="password" id="passField"/>                   
                 </span>
-                <p className="error">{this.state.error}</p>
+                {errorList}
                 <button className="submit" onClick={this.onsubmit}>Login</button>
 
             </div>

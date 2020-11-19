@@ -4,17 +4,10 @@ import './index.css';
 import Routes from './Routes';
 import reportWebVitals from './reportWebVitals';
 
-import {Provider} from 'react-redux';
-import {createStore} from 'redux';
-import rootReducers from './reducers/index'
-const store = createStore(rootReducers);
-
 
 ReactDOM.render(
   <React.StrictMode>
-   <Provider  store={store}>
     <Routes />
-   </Provider> 
   </React.StrictMode>,
   document.getElementById('root')
 );

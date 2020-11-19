@@ -3,6 +3,8 @@ import MovieImage from '../MovieImage/MovieImage';
 
 
 const MovieList = ({list,title,onClickFn,buttonText}) => {
+
+
   return (
             <div className="movie-cont">
                 <h2>{title}</h2>
