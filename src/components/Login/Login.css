@@ -1,0 +1,44 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 300px;
+  box-shadow: 0px 2px 2px rgb(0, 0, 0, 0.16);
+  margin: auto;
+  margin-top: 10%;
+}
+.form-container span {
+  display: flex;
+  flex-direction: column;
+}
+
+h2{
+  text-align: center;
+}
+input,
+label {
+  margin-inline-start: 5%;
+  margin-block-start: 2%;
+}
+input{
+  border:0;
+  border-bottom: 1px solid;
+  width: 50%;
+  margin-inline-start: %;
+}
+.submit {
+  width: 50%;
+  margin: auto;
+  background: #b79090;
+  padding:10px;
+  border: 0px;
+  box-shadow: 0px 2px 5px rgb(0, 0, 0, 0.16);
+}
+button:hover {
+  box-shadow: inset 0px 2px 2px rgb(0, 0, 0, 0.16);
+}
+.error {
+  color: red;
+  margin-inline-start: 5%;
+  font-weight: bold;
+}
